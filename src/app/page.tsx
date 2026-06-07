@@ -1,7 +1,7 @@
 "use client";
-export const dynamic = "force-dynamic";
+
 import { useCartStore } from "../store/cartStore";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import api from "../lib/axios";
 import { ShoppingCart } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
@@ -25,7 +25,7 @@ interface Product {
 
 const BACKEND_URL = "http://localhost:5000";
 
-export default function Home() {
+function HomeContent() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
@@ -65,10 +65,12 @@ export default function Home() {
     setIsLoggedIn(!!token);
 
     setCurrentPage(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   useEffect(() => {
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, currentPage]);
 
   const formatPrice = (price: number) => {
@@ -203,5 +205,20 @@ export default function Home() {
         )}
       </div>
     </div>
+  );
+}
+
+// BỌC CẢ CÁI TRANG LẠI VÀO SUSPENSE Ở ĐÂY
+export default function Home() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center font-bold text-xl text-gray-500">
+          Đang tải cửa hàng...
+        </div>
+      }
+    >
+      <HomeContent />
+    </Suspense>
   );
 }
