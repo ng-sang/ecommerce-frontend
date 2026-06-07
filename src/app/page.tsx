@@ -1,5 +1,5 @@
 "use client";
-
+export const dynamic = "force-dynamic";
 import { useCartStore } from "../store/cartStore";
 import { useEffect, useState } from "react";
 import api from "../lib/axios";
@@ -63,7 +63,7 @@ export default function Home() {
     setIsMounted(true);
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
-    // Reset về trang 1 khi từ khóa tìm kiếm thay đổi
+
     setCurrentPage(1);
   }, [searchQuery]);
 
@@ -136,7 +136,7 @@ export default function Home() {
                 const numericPrice = product.variants?.[0]?.price
                   ? Number(product.variants[0].price)
                   : 0;
-                let displayImage = product.image
+                const displayImage = product.image
                   ? product.image.startsWith("http")
                     ? product.image
                     : `${BACKEND_URL}${product.image}`
