@@ -101,6 +101,7 @@ export default function ProductDetailPage() {
       name: `${product.name} (${selectedVariant.color} - ${selectedVariant.ram}/${selectedVariant.rom})`,
       price: numericPrice,
       image: displayImage,
+      quantity: 1,
     });
 
     toast.success(`Đã thêm ${product.name} vào giỏ hàng!`, {
