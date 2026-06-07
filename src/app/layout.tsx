@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header"; // Đã sửa đường dẫn ở đây
-
+import { Suspense } from "react";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -32,7 +32,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900 min-h-screen flex flex-col`}
       >
-        <Header />
+        <Suspense fallback={<div>Đang tải thanh công cụ...</div>}>
+          <Header />
+        </Suspense>
         <main className="flex-grow">{children}</main>
         <footer className="py-8 text-center text-gray-400 text-sm border-t border-gray-100 bg-white">
           © 2026 VIP STORE. Designed with Zen Spirit.
