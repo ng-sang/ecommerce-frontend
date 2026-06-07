@@ -23,7 +23,7 @@ interface Product {
   variants?: ProductVariant[];
 }
 
-const BACKEND_URL = "http://localhost:5000";
+const BACKEND_URL = "https://ecommerce-backend-4-fyjh.onrender.com";
 
 function HomeContent() {
   const [products, setProducts] = useState<Product[]>([]);
